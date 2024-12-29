@@ -1,0 +1,33 @@
+<!-- login.component.html -->
+ <div class="bgAdminLogin">
+<div class="container d-flex justify-content-center align-items-center vh-100" >
+  <div class="card p-4 w-50 shadow">
+    <h2 class="text-center mb-4">Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" type="email" formControlName="email" class="form-control" required>
+        <div class="text-danger mt-1" *ngIf="loginForm.controls['email'].hasError('required')">
+          Email is required
+        </div>
+        <div class="text-danger mt-1" *ngIf="loginForm.controls['email'].hasError('email')">
+          Enter a valid email
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" type="password" formControlName="password" class="form-control" required>
+        <div class="text-danger mt-1" *ngIf="loginForm.controls['password'].hasError('required')">
+          Password is required
+        </div>
+        <div class="text-danger mt-1" *ngIf="loginForm.controls['password'].hasError('minlength')">
+          Password must be at least 6 characters long
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>
+</div>

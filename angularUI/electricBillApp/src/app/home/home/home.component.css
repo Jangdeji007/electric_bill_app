@@ -1,0 +1,46 @@
+
+ /* Container for the marquee effect */
+ .alert-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background-color: #d1e7dd; /* Light green for alert success */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* The scrolling text */
+.alert-text {
+  display: inline-block;
+  animation: scroll-left 10s linear infinite;
+}
+
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for zoom and shadow */
+}
+
+.card:hover {
+  transform: scale(1.1); /* Zoom the card */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add shadow for hover effect */
+}
+
+.card-text {
+  color: initial; /* Default text color */
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for text color and zoom */
+}
+
+.card:hover .card-text {
+  color: red; /* Change text color to red */
+  transform: scale(1.2); /* Slightly zoom the text */
+}
+
+

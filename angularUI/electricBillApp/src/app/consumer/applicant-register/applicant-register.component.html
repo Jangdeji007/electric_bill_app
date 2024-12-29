@@ -1,0 +1,104 @@
+<div class="container mt-5">
+  <div class="card shadow">
+      <div class="card-body bg-info text-light">
+          <h4 class="card-title mb-4">New Registration</h4>
+          <div class="container mt-5">
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+              <!-- Type of Connection -->
+              <div class="mb-3">
+                <label >Select Type of Connection:</label><br>
+                <div class="form-check form-check-inline">
+                  <input
+                    type="radio"
+                    formControlName="connectionType"
+                    value="HT"
+                    id="ht"
+                  />
+                  <label class="form-check-label p-2" for="ht">HT</label>
+                  <input
+                    type="radio"
+                    formControlName="connectionType"
+                    value="LT"
+                    id="lt"
+                  />
+                  <label class="form-check-label p-2" for="lt">LT</label>
+                </div>
+              </div>
+
+              <!-- User ID -->
+              <div class="mb-3">
+                <label for="userId">User ID:</label>
+                <input
+                  type="text"
+                  id="userId"
+                  formControlName="userId"
+                  class="form-control"
+                />
+                <small *ngIf="isInvalid('userId')" class="text-danger">
+                  User ID is required.
+                </small>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  class="form-control"
+                />
+                <small *ngIf="isInvalid('email')" class="text-danger">
+                  Enter a valid email address.
+                </small>
+              </div>
+
+              <!-- Mobile Number -->
+              <div class="mb-3">
+                <label for="mobile">Mobile Number:</label>
+                <input
+                  type="text"
+                  id="mobile"
+                  formControlName="mobile"
+                  class="form-control"
+                />
+                <small *ngIf="isInvalid('mobile')" class="text-danger">
+                  Mobile number must be 10 digits.
+                </small>
+              </div>
+
+              <!-- Password -->
+              <div class="mb-3">
+                <label for="password">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  formControlName="password"
+                  class="form-control"
+                />
+                <small *ngIf="isInvalid('password')" class="text-danger">
+                  Password must be at least 6 characters long.
+                </small>
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="mb-3">
+                <label for="confirmPassword">Re-enter Password:</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  formControlName="confirmPassword"
+                  class="form-control"
+                />
+                <small *ngIf="isInvalid('confirmPassword')" class="text-danger">
+                  Passwords must match.
+                </small>
+              </div>
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Submit</button>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+

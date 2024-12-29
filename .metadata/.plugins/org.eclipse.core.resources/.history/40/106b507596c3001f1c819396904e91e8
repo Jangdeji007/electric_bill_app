@@ -1,0 +1,76 @@
+package com.nit.model;
+
+import java.util.Set;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import com.nit.repository.AdminRepository;
+import com.nit.repository.ApplicantRepository;
+import com.nit.repository.RoleRepository;
+
+@Component
+public class DataSeeder {
+
+	@Bean
+	public CommandLineRunner seedDatabase(
+	        RoleRepository roleRepository,
+	        AdminRepository adminRepository,
+	        ApplicantRepository applicantRegisterRepository
+	) {
+	    return args -> {
+	        // Fetch or create roles
+	    	Role adminRole = roleRepository.findByName("ROLE_ADMIN").orElseGet(() -> {
+	    	    Role newRole = Role.builder()
+	    	            .name("ROLE_ADMIN")
+	    	            .build();
+	    	    return roleRepository.save(newRole);
+	    	});
+
+	    	// Ensure adminRole is managed
+	    	adminRole = roleRepository.findByName("ROLE_ADMIN").orElse(adminRole);
+
+	    	Role userRole = roleRepository.findByName("ROLE_USER").orElseGet(() -> {
+	    	    Role newRole = Role.builder()
+	    	            .name("ROLE_USER")
+	    	            .build();
+	    	    return roleRepository.save(newRole);
+	    	});
+
+	    	// Ensure userRole is managed
+	    	userRole = roleRepository.findByName("ROLE_USER").orElse(userRole);
+
+	        // Fetch or create Admin
+	        if (adminRepository.findByEmail("admin@example.com").isEmpty()) {
+	            Admin admin = Admin.builder()
+	                    .name("Admin User")
+	                    .password(new BCryptPasswordEncoder().encode("admin123"))
+	                    .email("admin@example.com")
+	                    .phoneNo(9876543210L)
+	                    .address("Admin Address")
+	                    .roles(Set.of(adminRole)) // Use the managed role
+	                    .build();
+	            adminRepository.save(admin);
+	        }
+
+	        // Fetch or create Applicant
+	        if (applicantRegisterRepository.findByUserId("user@example.com").isEmpty()) {
+	            ApplicantRegister applicant = ApplicantRegister.builder()
+	                    .userId("user1")
+	                    .password(new BCryptPasswordEncoder().encode("user123"))
+	                    .email("user@example.com")
+	                    .connectionType("Home")
+	                    .mobile(9123456789L)
+	                    .roles(Set.of(userRole)) // Use the managed role
+	                    .build();
+	            applicantRegisterRepository.save(applicant);
+	        }
+
+	        System.out.println("Database seeding complete.");
+	    };
+	}
+
+}
+

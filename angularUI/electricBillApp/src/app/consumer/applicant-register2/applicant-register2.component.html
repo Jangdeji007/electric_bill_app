@@ -1,0 +1,361 @@
+<div class="container-sm mt-5 mb-5">
+  <div class="bs-stepper">
+    <!-- Stepper Header -->
+    <div class="bs-stepper-header container d-flex justify-content-between align-items-center mt-4" role="tablist">
+      <div class="step d-flex flex-column align-items-center" [class.active]="currentStep === 1">
+        <button type="button" class="step-trigger" (click)="setStep(1)">
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label mt-2">Personal Details</span>
+        </button>
+      </div>
+      <div class="line flex-grow-1 mx-2"></div>
+      <div class="step d-flex flex-column align-items-center" [class.active]="currentStep === 2">
+        <button type="button" class="step-trigger" (click)="setStep(2)">
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label mt-2">Address</span>
+        </button>
+      </div>
+      <div class="line flex-grow-1 mx-2"></div>
+      <div class="step d-flex flex-column align-items-center" [class.active]="currentStep === 3">
+        <button type="button" class="step-trigger" (click)="setStep(3)">
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label mt-2">Terms & Conditions</span>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- Stepper Content -->
+    <div class="bs-stepper-content p-4  card ">
+      <!-- Step 1 -->
+      <div *ngIf="currentStep === 1">
+        <form [formGroup]="firstFormGroup" class="row g-3 needs-validation" (ngSubmit)="onSubmit()" novalidate>
+          <h5>Connection Type</h5>
+          <div class="mb-3">
+            <div class="form-check form-check-inline">
+              <input type="radio" formControlName="connectionType" value="Permanent" id="Permanent" />
+              <label class="form-check-label p-2" for="Permanent">Permanent</label>
+              <input type="radio" formControlName="connectionType" value="Temporary" id="Temporary" />
+              <label class="form-check-label p-2" for="Temporary">Temporary</label>
+            </div>
+            <div
+              *ngIf="firstFormGroup.controls['connectionType'].invalid && firstFormGroup.controls['connectionType'].touched"
+              class="text-danger">
+              Please select a connection type.
+            </div>
+          </div>
+
+          <h5>Personal Details</h5>
+          <div class="col-md-2">
+            <label for="title" class="form-label">Title</label>
+            <select class="form-select" formControlName="title" id="title" required>
+              <option value="" disabled>Select</option>
+              <option>Mr</option>
+              <option>Ms</option>
+            </select>
+            <div *ngIf="firstFormGroup.controls['title'].invalid && firstFormGroup.controls['title'].touched"
+              class="text-danger">
+              Please select a title.
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" formControlName="firstName" id="firstName" required>
+            <div *ngIf="firstFormGroup.controls['firstName'].invalid && firstFormGroup.controls['firstName'].touched"
+              class="text-danger">
+              First name is required.
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName" id="lastName" required>
+            <div *ngIf="firstFormGroup.controls['lastName'].invalid && firstFormGroup.controls['lastName'].touched"
+              class="text-danger">
+              Last name is required.
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" id="email" required>
+            <div *ngIf="firstFormGroup.controls['email'].invalid && firstFormGroup.controls['email'].touched"
+              class="text-danger">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="dob" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" formControlName="dob" id="dob" required>
+            <div *ngIf="firstFormGroup.controls['dob'].invalid && firstFormGroup.controls['dob'].touched"
+              class="text-danger">
+              Date of birth is required.
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <label for="gender" class="form-label">Gender</label>
+            <select class="form-select" formControlName="gender" id="gender" required>
+              <option value="" disabled>Select</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+            <div *ngIf="firstFormGroup.controls['gender'].invalid && firstFormGroup.controls['gender'].touched"
+              class="text-danger">
+              Please select a gender.
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" formControlName="category" id="category" required>
+              <option value="" disabled>Select</option>
+              <option>General</option>
+              <option>General (EWS)</option>
+              <option>OBC</option>
+              <option>ST</option>
+              <option>SC</option>
+            </select>
+            <div *ngIf="firstFormGroup.controls['category'].invalid && firstFormGroup.controls['category'].touched"
+              class="text-danger">
+              Please select a category.
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="mobile" class="form-label">Mobile No.</label>
+            <input type="tel" class="form-control" formControlName="mobile" id="mobile" required>
+            <div *ngIf="firstFormGroup.controls['mobile'].invalid && firstFormGroup.controls['mobile'].touched"
+              class="text-danger">
+              Please enter a valid mobile number.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="userId" class="form-label">UserId</label>
+            <input type="tel" class="form-control" formControlName="userId" id="userId" required>
+            <div *ngIf="firstFormGroup.controls['userId'].invalid && firstFormGroup.controls['userId'].touched"
+              class="text-danger">
+              UserID
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="aadhaar" class="form-label">Aadhaar Card</label>
+            <input type="text" class="form-control" formControlName="aadhaar" id="aadhaar" required>
+            <div *ngIf="firstFormGroup.controls['aadhaar'].invalid && firstFormGroup.controls['aadhaar'].touched"
+              class="text-danger">
+              Aadhaar number is required.
+            </div>
+          </div>
+
+          <h5>Documents</h5>
+          <div class="col-md-6">
+            <label class="form-label">Aadhaar Card</label>
+            <input type="file" class="form-control" formControlName="aadhaarFile"
+              (change)="onFileChange($event, 'aadhaarFile')" required>
+            <div
+              *ngIf="firstFormGroup.controls['aadhaarFile'].hasError('required') && firstFormGroup.controls['aadhaarFile'].touched"
+              class="text-danger">
+              Aadhaar Card is required.
+            </div>
+            <div
+              *ngIf="firstFormGroup.controls['aadhaarFile'].hasError('adharSize') && firstFormGroup.controls['aadhaarFile'].touched"
+              class="text-danger">
+              File size must be less than 200KB.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Rashan Card</label>
+            <input type="file" class="form-control" formControlName="rashanCard"
+              (change)="onFileChange($event, 'rashanCard')" required>
+            <div
+              *ngIf="firstFormGroup.controls['rashanCard'].hasError('required') && firstFormGroup.controls['rashanCard'].touched"
+              class="text-danger">
+              Rashan Card is required.
+            </div>
+            <div
+              *ngIf="firstFormGroup.controls['rashanCard'].hasError('fileSize') && firstFormGroup.controls['rashanCard'].touched"
+              class="text-danger">
+              File size must be less than 200KB.
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Photo</label><small>(passport size)</small>
+            <input type="file" class="form-control" formControlName="photo" (change)="onFileChange($event, 'photo')"
+              required>
+            <div
+              *ngIf="firstFormGroup.controls['photo'].hasError('required') && firstFormGroup.controls['photo'].touched"
+              class="text-danger">
+              Photo is required.
+            </div>
+            <div
+              *ngIf="firstFormGroup.controls['photo'].hasError('fileSize') && firstFormGroup.controls['photo'].touched"
+              class="text-danger">
+              File size must be less than 200KB.
+            </div>
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary">Save and Next</button>
+          </div>
+        </form>
+
+      </div>
+
+      <!-- Step 2 -->
+      <div *ngIf="currentStep === 2">
+        <h5>Address</h5>
+        <form [formGroup]="addressForm" class="row g-3 needs-validation" (ngSubmit)="onSubmit2()" novalidate>
+          <div class="col-md-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="address" id="address">
+            <div *ngIf="addressForm.controls['address'].invalid && addressForm.controls['address'].touched"
+              class="text-danger">
+              address is required.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="house" class="form-label">House/plot/premise no.</label>
+            <input type="text" class="form-control" formControlName="house" id="houser">
+            <div *ngIf="addressForm.controls['house'].invalid && addressForm.controls['house'].touched"
+              class="text-danger">
+              house No is required.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="street" class="form-label">Street</label>
+            <input type="text" class="form-control" formControlName="street" id="street">
+            <div *ngIf="addressForm.controls['street'].invalid && addressForm.controls['street'].touched"
+              class="text-danger">
+              street is required.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="calony" class="form-label">Area/Colony</label>
+            <input type="text" class="form-control" formControlName="calony" id="colony">
+            <div *ngIf="addressForm.controls['calony'].invalid && addressForm.controls['calony'].touched"
+              class="text-danger">
+              Area/Colony is required.
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-check form-check-inline">
+              <label for="">Town/Village</label><br>
+              <input type="radio" formControlName="localaty" value="Town" id="Town" />
+              <label class="form-check-label p-2" for="Town">Town</label>
+              <input type="radio" formControlName="localaty" value="Village" id="Village" />
+              <label class="form-check-label p-2" for="Village">Village</label>
+            </div>
+            <div *ngIf="addressForm.controls['localaty'].invalid && addressForm.controls['localaty'].touched"
+              class="text-danger">
+              Please select a connection type.
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="district" class="form-label">District</label>
+            <select class="form-select" formControlName="district" id="district" required>
+              <option value="" disabled>Select a District</option>
+              <option *ngFor="let item of districts" [value]="item.district">
+                {{ item.district }}
+              </option>
+            </select>
+            <div *ngIf="addressForm.controls['district'].invalid && addressForm.controls['district'].touched"
+              class="text-danger">
+              Please select a district.
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="block" class="form-label">Blocks</label>
+            <select class="form-select" formControlName="block" id="block" required>
+              <option value="" disabled>Select a block</option>
+              <option *ngFor="let block of selectedDistrictBlocks" [value]="block">
+                {{ block }}
+              </option>
+            </select>
+            <div *ngIf="addressForm.controls['block'].invalid && addressForm.controls['block'].touched"
+              class="text-danger">
+              Please select a block.
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="calony" class="form-label">Pincode</label>
+            <input type="number" class="form-control" formControlName="pincode" id="pincode">
+            <div *ngIf="addressForm.controls['pincode'].invalid && addressForm.controls['pincode'].touched"
+              class="text-danger">
+              Area pincode is required.
+            </div>
+          </div>
+          <div class="col-md-12 text-center ">
+            <button type="button" class="btn btn-secondary m-2" (click)="previousStep()">Previous</button>
+            <button type="submit" class="btn btn-primary">Save and Next</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 3 -->
+      <div *ngIf="currentStep === 3">
+        <h5>Terms & Conditions</h5>
+        <p class="p-3">
+          मैं/हम एतद्द्वारा घोषणा करते हैं कि<br>
+          (क) इस ओवेदन में दी गई जानकारी मेरी सर्वोत्तम जानकारी के अनुसार सत्य है।<br>
+          (ख) मैने/ / हमने छूत्तीसगढ़ विदयुत आपूर्ति संहिता को पढ़ लिया है और उसमें उल्लिखित मातों का पालन करने के लिए
+          सहमत हूं।<br>
+          (ग) मैं हम लागू बिजली टैरिफ और अन्य शुल्कों के अनुसार, दूर महीने बिजली का बकाया जमा करेंगे।<br>
+          (घ) में (हम मीटर, कट-आउट और और उसके बाद की स्थापना की सुरक्षा की जिम्मेदारी लेते हैं।<br>
+          (ङ) मेरे/हमारे नाम पर लाइसेंसधारी के प्रिचालन क्षेत्र में कोई बिजली बकाया नहीं है।<br>
+          (च) जिस परिसूर में कनेवूशन के लिए आवेदन किया गया है उस परिसर में कोई बिजली बकाया नहीं है।<br>
+          (छ) मेरी हमारी किसी भी फर्म, जिसके साथ में/हम मालिक/साझेदार/निदेशक/प्रबंध निदेशक आदि के रूप में जुड़े हुए हैं,
+          के विरुद्ध लाइसेंसधारी का कोई बिजली बकाया नहीं है।<br>
+          ) इस वेब फॉर्म में संलग्र दस्तावेज मेरी जानकारी और विश्वास के अनुसार सत्य पूर्ण और सटीक है। यदि सत्यापन<br>
+          प्रक्रिया के दौरान कोई विसंगति या अशुद्धि पाई जाती है तो छ.ग.रा.वि.वि. कंपनी मेरे आवेदन को अस्वीकार
+          ज ( करने का अधिकार सुरक्षित रखता है।)<br>
+        </p>
+        <p>
+          <b>I/We hereby declare that</b><br>
+          (a) The information provided in this application is true to the best of my knowledge. <br>(b)
+          (c) I/We have read the Chhattisgarh Electricity Supply Code and agree to abide by the conditions mentioned<br>
+          therein.. I/We will deposit electricity dues, every month, as per the applicable electricity tariff and other
+          charges.<br>
+          I/We own the responsibility of security and safety of the meter, cut-out and the installation thereafter.<br>
+          (d)
+          (e) No electricity dues are outstanding in licensee's area of operation in my/our name.<br>
+          (f) No electricity dues outstanding for the premises in which connection applied for.<br> (g
+          ) No electricity dues are outstanding with the licensee against any of my/our firm with which I/ We is
+          associated as an Owner/Partner/Director/Managing Director, etc. <br>(h) The documents uploaded in this web form is
+          true, complete and accurate to the best of my knowledge and belief.CSPDCL reserves the right to reject my
+          application if any
+          discrepencies or inaccuracies are discovered during the verification process.
+          Save <br><br>
+          यदि आपने आंशिक रूप से, ऑनलाइन एनएससी फॉर्म भर दिया है और कुछ समय बाद इसे पूरा करना चाहते हैं तो अपने वर्तमान
+          भरे हुए फॉर्म को सहेजने के लिए Save बटन दबाएं। (If you have partly filled up the Online NSC Form and want to
+          complete it after some time then Press Save button to save your current filled up form.)
+        </p>
+        <form [formGroup]="termsForm" (ngSubmit)="submit()">
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="terms"
+              formControlName="terms"
+            />
+            <label class="form-check-label" for="terms">
+              I agree to the terms and conditions
+            </label>
+            <div *ngIf="termsForm.controls['terms'].value==false && termsForm.controls['terms'].touched" class="text-danger">
+              You must agree to the terms and conditions.
+            </div>
+          </div>
+          <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-secondary m-2" (click)="previousStep()">Previous</button>
+            <button type="submit" class="btn btn-primary" [disabled]="termsForm.invalid || firstFormGroup.invalid || addressForm.invalid">Save</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

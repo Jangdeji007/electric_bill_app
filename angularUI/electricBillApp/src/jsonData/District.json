@@ -1,0 +1,110 @@
+[
+  {
+    "district": "Balod",
+    "blocks": ["Balod", "Dondilohara", "Gunderdehi"]
+  },
+  {
+    "district": "Baloda Bazar",
+    "blocks": ["Baloda Bazar", "Bilaigarh", "Kasdol", "Palari", "Simga"]
+  },
+  {
+    "district": "Balrampur",
+    "blocks": ["Balrampur", "Ramanujganj", "Rajpur", "Shankargarh", "Wadrafnagar"]
+  },
+  {
+    "district": "Bastar",
+    "blocks": ["Bastar", "Bakawand", "Darbha", "Jagdalpur", "Lohandiguda", "Tokapal"]
+  },
+  {
+    "district": "Bemetara",
+    "blocks": ["Bemetara", "Berla", "Nawagarh", "Saja", "Than Khamaria"]
+  },
+  {
+    "district": "Bijapur",
+    "blocks": ["Bijapur", "Bhairamgarh", "Usoor"]
+  },
+  {
+    "district": "Bilaspur",
+    "blocks": ["Bilaspur", "Masturi", "Takhatpur", "Bilha", "Pendra"]
+  },
+  {
+    "district": "Dantewada (South Bastar)",
+    "blocks": ["Dantewada", "Geedam", "Katekalyan", "Kuakonda"]
+  },
+  {
+    "district": "Dhamtari",
+    "blocks": ["Dhamtari", "Kurud", "Magarlod", "Nagri"]
+  },
+  {
+    "district": "Durg",
+    "blocks": ["Durg", "Patan", "Dhamdha"]
+  },
+  {
+    "district": "Gariaband",
+    "blocks": ["Gariaband", "Chhura", "Mainpur", "Devbhog", "Rajim"]
+  },
+  {
+    "district": "Janjgir-Champa",
+    "blocks": ["Janjgir", "Champa", "Pamgarh", "Sakti", "Malkharoda"]
+  },
+  {
+    "district": "Jashpur",
+    "blocks": ["Jashpur", "Bagicha", "Kunkuri", "Manora", "Pathalgaon"]
+  },
+  {
+    "district": "Kabirdham (Kawardha)",
+    "blocks": ["Kawardha", "Pandariya", "Sahaspur Lohara", "Bodla"]
+  },
+  {
+    "district": "Kanker (North Bastar)",
+    "blocks": ["Kanker", "Charama", "Narharpur", "Antagarh", "Durgukondal"]
+  },
+  {
+    "district": "Kondagaon",
+    "blocks": ["Kondagaon", "Makdi", "Farasgaon", "Baderajpur"]
+  },
+  {
+    "district": "Korba",
+    "blocks": ["Korba", "Katghora", "Pali", "Kartala"]
+  },
+  {
+    "district": "Korea (Koriya)",
+    "blocks": ["Baikunthpur", "Sonhat", "Manendragarh", "Khongapani", "Bharatpur"]
+  },
+  {
+    "district": "Mahasamund",
+    "blocks": ["Mahasamund", "Bagbahara", "Basna", "Pithora", "Saraipali"]
+  },
+  {
+    "district": "Mungeli",
+    "blocks": ["Mungeli", "Lormi", "Pathariya"]
+  },
+  {
+    "district": "Narayanpur",
+    "blocks": ["Narayanpur", "Orchha"]
+  },
+  {
+    "district": "Raigarh",
+    "blocks": ["Raigarh", "Pusaur", "Kharsia", "Sarangarh", "Lailunga"]
+  },
+  {
+    "district": "Raipur",
+    "blocks": ["Raipur", "Tilda", "Arang", "Abhanpur"]
+  },
+  {
+    "district": "Rajnandgaon",
+    "blocks": ["Rajnandgaon", "Dongargarh", "Chhuikhadan", "Khairagarh", "Manpur"]
+  },
+  {
+    "district": "Sukma",
+    "blocks": ["Sukma", "Chhindgarh", "Konta"]
+  },
+  {
+    "district": "Surajpur",
+    "blocks": ["Surajpur", "Odgi", "Premnagar", "Bhatgaon"]
+  },
+  {
+    "district": "Surguja",
+    "blocks": ["Ambikapur", "Lundra", "Lakhanpur", "Sitapur", "Mainpat"]
+  }
+]

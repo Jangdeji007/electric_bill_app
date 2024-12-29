@@ -1,0 +1,19 @@
+.login-box {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgb(178, 211, 211);
+}
+.form-text {
+  font-size: 0.9rem;
+}
+.alert-box {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  
+
+}

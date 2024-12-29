@@ -1,0 +1,46 @@
+/* Stepper Styles */
+.bs-stepper-header .step {
+  text-align: center;
+}
+
+.bs-stepper-header .step .step-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: none;
+  background: none;
+}
+
+.bs-stepper-header .step .bs-stepper-circle {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background-color: #6c757d;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.bs-stepper-header .step.active .bs-stepper-circle {
+  background-color: #007bff;
+}
+
+.bs-stepper-header .line {
+  height: 2px;
+  background-color: #6c757d;
+}
+
+.bs-stepper-header .step.active ~ .line {
+  background-color: #007bff;
+}
+
+.bs-stepper-label {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.bs-stepper-header .step.active .bs-stepper-label {
+  color: #007bff;
+}

@@ -1,0 +1,44 @@
+ [
+    {
+      "image": "images/knowhtbill.png",
+      "description": "Know your bill",
+      "ref":"billCheck"
+    },
+    {
+      "image": "images/billpay.png",
+      "description": "Pay bill online",
+      "ref":"billpay"
+    },
+    {
+      "image": "images/newconnection.png",
+      "description": "new service registration",
+      "ref":"newconnection"
+    },
+    {
+      "image": "images/registercomplaint.png",
+      "description": "service request",
+      "ref":"regiComplain"
+    },
+    {
+      "image": "images/registercomplaint.png",
+      "description": "Ht consumer service",
+      "ref":"htservice"
+    },
+    {
+      "image": "images/Theft_New.jpg",
+      "description": "report Eclectricity/complain",
+      "ref":"complain"
+    },
+    {
+      "image": "images/solaricon.png",
+      "description": "roof top solar net meter",
+      "ref":"solor"
+    }
+    ,
+    {
+      "image": "images/industrial.png",
+      "description": "industrial service connection",
+      "ref":"industrial"
+    }
+  ]
+

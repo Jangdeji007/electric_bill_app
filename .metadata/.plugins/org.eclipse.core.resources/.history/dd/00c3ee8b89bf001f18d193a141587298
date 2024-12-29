@@ -1,0 +1,5 @@
+package com.nit.controller;
+
+public class PublicController {
+
+}

@@ -1,0 +1,28 @@
+package com.nit.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nit.model.ApplicantRegister;
+import com.nit.service.ApplicantRegiService;
+
+@RestController
+@RequestMapping("/applicant")
+public class ApplicantController {
+	
+	@Autowired
+	ApplicantRegiService appService;
+	
+	@PostMapping("/getUser")
+	public ResponseEntity<ApplicantRegister> getUser( @RequestBody ApplicantRegister id)
+	{
+		System.err.println(id);
+		ApplicantRegister user = appService.getUser(id);
+		return new ResponseEntity<ApplicantRegister>(user, HttpStatus.OK);
+	}
+}
