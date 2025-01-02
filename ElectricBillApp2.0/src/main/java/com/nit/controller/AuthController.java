@@ -1,5 +1,8 @@
 package com.nit.controller;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,13 +44,26 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
 
-		this.doAuthenticate(request.getUsername(), request.getPassword());
+	    this.doAuthenticate(request.getEmail(), request.getPassword());
 
-		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-		String token = this.helper.generateToken(userDetails);
+	    // Load user details
+	    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+	    String token = this.helper.generateToken(userDetails);
 
-		JwtResponse response = JwtResponse.builder().jwtToken(token).username(userDetails.getUsername()).build();
-		return new ResponseEntity<>(response, HttpStatus.OK);
+	    // Extract roles from GrantedAuthority
+	    Set<String> roles = userDetails.getAuthorities()
+	                                   .stream()
+	                                   .map(GrantedAuthority::getAuthority)
+	                                   .collect(Collectors.toSet());
+
+	    // Build and return the JwtResponse
+	    JwtResponse response = JwtResponse.builder()
+	                                       .jwtToken(token)
+	                                       .email(userDetails.getUsername())
+	                                       .roles(roles)
+	                                       .build();
+
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 

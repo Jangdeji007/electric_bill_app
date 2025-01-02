@@ -29,7 +29,7 @@ public class ApplicantRegiService {
 	
 	public ApplicantRegister creatApplicat(ApplicantRegister appReg)
 	{
-		if(userRepo.existsByUserId(appReg.getUserId())) {
+		if(userRepo.existsByEmail(appReg.getEmail())) {
 			throw new IllegalArgumentException("User allReady created");
 		}
 		
@@ -40,10 +40,10 @@ public class ApplicantRegiService {
 		return save;
 	}
 	
-	public ApplicantRegister getUser(String id)
+	public ApplicantRegister getUser(String email)
 	{
-		ApplicantRegister byUserId =userRepo.findByUserId(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found for id: " + id));
+		ApplicantRegister byUserId =userRepo.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found for this email Id: " + email));
 		return byUserId;
 	}
 	

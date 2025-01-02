@@ -21,7 +21,6 @@ public class CustomeUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	AdminRepository admiRepo;
-	
 	@Autowired
 	ApplicantRepository appRepo;
 	@Override
@@ -39,11 +38,11 @@ public class CustomeUserDetailsService implements UserDetailsService {
 	            );
 		}
 		
-		Optional<ApplicantRegister> applicant= appRepo.findByUserId(username);
+		Optional<ApplicantRegister> applicant= appRepo.findByEmail(username);
 		if(applicant.isPresent())
 		{
 			return new User(
-					applicant.get().getUserId(),
+					applicant.get().getEmail(),
 					applicant.get().getPassword(),
 					applicant.get().getRoles().stream()
 					.map(role -> new SimpleGrantedAuthority(role.getName()))

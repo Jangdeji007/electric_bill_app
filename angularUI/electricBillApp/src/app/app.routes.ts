@@ -7,25 +7,27 @@ import { HomeComponent } from './home/home/home.component';
 import { AboutComponent } from './home/about/about.component';
 import { BoardOfdirectorsComponent } from './home/board-ofdirectors/board-ofdirectors.component';
 import { ApplicantRegisterComponent } from './consumer/applicant-register/applicant-register.component';
-import { ApplicantLoginComponent } from './consumer/applicant-login/applicant-login.component';
 import { ApplicantRegister2Component } from './consumer/applicant-register2/applicant-register2.component';
-
 export const routes: Routes = [
-  {path:"", component:HomeComponent},
-  {path:"board_of_directors", component:BoardOfdirectorsComponent},
-  {path:"applicant-Register",component:ApplicantRegisterComponent},
-  {path:"Applicant_Login", component: ApplicantLoginComponent},
-  {path:"register",component:ApplicantRegister2Component, },
-  {path:"about_cspdl",component:AboutComponent},
+  { path: "", component: HomeComponent },
+  { path: "board_of_directors", component: BoardOfdirectorsComponent },
+  { path: "applicant-Register", component: ApplicantRegisterComponent },
+  { path: "Applicant_Login", redirectTo: "login" },
+  { path: "register", component: ApplicantRegister2Component, canActivate: [authGuard], data:{roles:["ROLE_USER"]}},
+  { path: "about_cspdl", component: AboutComponent },
 
-  {path:"login", component:LoginComponent},
-  {path:"admin",
+  { path: "login", component: LoginComponent },
+  {
+    path: "admin",
     component: DeshboardAdmComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
+    data:{roles:["ROLE_ADMIN"]}
   },
-  {path:"consumer", component: DeshboardComponent,
-    canActivate: [authGuard]
+  {
+    path: "consumer", component: DeshboardComponent,
+    canActivate: [authGuard],
+    data:{roles:["ROLE_USER"]}
   },
-  {path:"**", redirectTo:""}
+  { path: "**", redirectTo: "" }
 ];
 

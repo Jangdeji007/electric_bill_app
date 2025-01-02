@@ -30,7 +30,7 @@
       <!-- Step 1 -->
       <div *ngIf="currentStep === 1">
         <form [formGroup]="firstFormGroup" class="row g-3 needs-validation" (ngSubmit)="onSubmit()" novalidate>
-          <h5>Connection Type</h5>
+          <h5>Connection Type <span style="color: brown;">*</span></h5>
           <div class="mb-3">
             <div class="form-check form-check-inline">
               <input type="radio" formControlName="connectionType" value="Permanent" id="Permanent" />
@@ -47,7 +47,7 @@
 
           <h5>Personal Details</h5>
           <div class="col-md-2">
-            <label for="title" class="form-label">Title</label>
+            <label for="title" class="form-label">Title <span style="color: brown;">*</span></label>
             <select class="form-select" formControlName="title" id="title" required>
               <option value="" disabled>Select</option>
               <option>Mr</option>
@@ -60,7 +60,7 @@
           </div>
 
           <div class="col-md-3">
-            <label for="firstName" class="form-label">First Name</label>
+            <label for="firstName" class="form-label">First Name <span style="color: brown;">*</span></label>
             <input type="text" class="form-control" formControlName="firstName" id="firstName" required>
             <div *ngIf="firstFormGroup.controls['firstName'].invalid && firstFormGroup.controls['firstName'].touched"
               class="text-danger">
@@ -69,7 +69,7 @@
           </div>
 
           <div class="col-md-3">
-            <label for="lastName" class="form-label">Last Name</label>
+            <label for="lastName" class="form-label">Last Name <span style="color: brown;">*</span></label>
             <input type="text" class="form-control" formControlName="lastName" id="lastName" required>
             <div *ngIf="firstFormGroup.controls['lastName'].invalid && firstFormGroup.controls['lastName'].touched"
               class="text-danger">
@@ -78,8 +78,8 @@
           </div>
 
           <div class="col-md-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" formControlName="email" id="email" required>
+            <label for="email" class="form-label">Email <span style="color: brown;">*</span></label>
+            <input type="email" class="form-control" formControlName="email" id="email" required readonly>
             <div *ngIf="firstFormGroup.controls['email'].invalid && firstFormGroup.controls['email'].touched"
               class="text-danger">
               Please enter a valid email address.
@@ -87,7 +87,7 @@
           </div>
 
           <div class="col-md-4">
-            <label for="dob" class="form-label">Date of Birth</label>
+            <label for="dob" class="form-label">Date of Birth <span style="color: brown;">*</span></label>
             <input type="date" class="form-control" formControlName="dob" id="dob" required>
             <div *ngIf="firstFormGroup.controls['dob'].invalid && firstFormGroup.controls['dob'].touched"
               class="text-danger">
@@ -96,7 +96,7 @@
           </div>
 
           <div class="col-md-2">
-            <label for="gender" class="form-label">Gender</label>
+            <label for="gender" class="form-label">Gender <span style="color: brown;">*</span></label>
             <select class="form-select" formControlName="gender" id="gender" required>
               <option value="" disabled>Select</option>
               <option>Male</option>
@@ -110,7 +110,7 @@
           </div>
 
           <div class="col-md-2">
-            <label for="category" class="form-label">Category</label>
+            <label for="category" class="form-label">Category <span style="color: brown;">*</span></label>
             <select class="form-select" formControlName="category" id="category" required>
               <option value="" disabled>Select</option>
               <option>General</option>
@@ -126,16 +126,16 @@
           </div>
 
           <div class="col-md-4">
-            <label for="mobile" class="form-label">Mobile No.</label>
-            <input type="tel" class="form-control" formControlName="mobile" id="mobile" required>
+            <label for="mobile" class="form-label">Mobile No. <span style="color: brown;">*</span></label>
+            <input type="tel" class="form-control" formControlName="mobile" id="mobile" required readonly>
             <div *ngIf="firstFormGroup.controls['mobile'].invalid && firstFormGroup.controls['mobile'].touched"
               class="text-danger">
               Please enter a valid mobile number.
             </div>
           </div>
           <div class="col-md-4">
-            <label for="userId" class="form-label">UserId</label>
-            <input type="tel" class="form-control" formControlName="userId" id="userId" required>
+            <label for="userId" class="form-label">UserId <span style="color: brown;">*</span></label>
+            <input type="tel" class="form-control" formControlName="userId" id="userId" required readonly>
             <div *ngIf="firstFormGroup.controls['userId'].invalid && firstFormGroup.controls['userId'].touched"
               class="text-danger">
               UserID
@@ -143,7 +143,7 @@
           </div>
 
           <div class="col-md-6">
-            <label for="aadhaar" class="form-label">Aadhaar Card</label>
+            <label for="aadhaar" class="form-label">Aadhaar Card <span style="color: brown;">*</span></label>
             <input type="text" class="form-control" formControlName="aadhaar" id="aadhaar" required>
             <div *ngIf="firstFormGroup.controls['aadhaar'].invalid && firstFormGroup.controls['aadhaar'].touched"
               class="text-danger">
@@ -153,7 +153,7 @@
 
           <h5>Documents</h5>
           <div class="col-md-6">
-            <label class="form-label">Aadhaar Card</label>
+            <label class="form-label">Aadhaar Card <span style="color: brown;">*</span></label>
             <input type="file" class="form-control" formControlName="aadhaarFile"
               (change)="onFileChange($event, 'aadhaarFile')" required>
             <div
@@ -169,7 +169,7 @@
           </div>
 
           <div class="col-md-6">
-            <label class="form-label">Rashan Card</label>
+            <label class="form-label">Rashan Card <span style="color: brown;">*</span></label>
             <input type="file" class="form-control" formControlName="rashanCard"
               (change)="onFileChange($event, 'rashanCard')" required>
             <div

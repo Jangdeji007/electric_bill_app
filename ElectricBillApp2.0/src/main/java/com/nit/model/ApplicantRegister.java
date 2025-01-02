@@ -38,13 +38,32 @@ public class ApplicantRegister implements Serializable {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createdDate = LocalDateTime.now();
-    }
+    // New fields
+    private String firstName;
+    private String lastName;
+    private LocalDateTime dob; // Date of birth
+    private String gender;
+    private String category;
+    
+    @Column(unique = true)
+    private String aadhaarCardNo; 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address; 
+
+    // Documents
+    private String aadhaarCardPhoto;
+    private String rashanCardPhoto;
+    private String applicantPhoto;
+    private String status;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="applicant_role", joinColumns = @JoinColumn(name="applicant_register",referencedColumnName = "id"))
     @ToString.Exclude
-    private Set<Role> roles= new HashSet<Role>();
+    private Set<Role> roles = new HashSet<>();
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = LocalDateTime.now();
+    }
 }

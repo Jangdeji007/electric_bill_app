@@ -24,7 +24,7 @@ public class PublicController {
 	@Autowired
 	private ApplicantRegiService appService;
 
-	@PostMapping("/create-user")
+	@PostMapping("/create-admin")
 	public ResponseEntity<Admin> createUser(@RequestBody Admin user) {
 		Admin user2 = adminService.createAdmin(user);
 

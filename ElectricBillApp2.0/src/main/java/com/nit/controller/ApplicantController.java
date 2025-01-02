@@ -21,16 +21,25 @@ public class ApplicantController {
 	@Autowired
 	ApplicantRegiService appService;
 	
-	@PostMapping("/login")
-	public ResponseEntity<Map<String , Object>> applicantLogin(@RequestBody String userId)
+	@PostMapping("/getDetails")
+	public ResponseEntity<Map<String,Object>> applicantLogin(@RequestBody Map<String, String> id)
 	{
-	
-		ApplicantRegister user = appService.getUser(userId);
-		Map<String , Object> userDetails= new HashMap<>();
-		userDetails.put("userId", user.getUserId());
-		userDetails.put("email", user.getEmail());
-		userDetails.put("mobile", user.getMobile());
-		userDetails.put("connectionType", user.getConnectionType());
-		return new ResponseEntity<>(userDetails, HttpStatus.OK);
+		String email= id.get("email");
+	System.err.println(email);
+		ApplicantRegister user = appService.getUser(email);
+		Map<String, Object> details= new HashMap<>();
+		details.put("userId", user.getUserId());
+		details.put("email", user.getEmail());
+		details.put("connectionType", user.getConnectionType());
+		details.put("mobile", user.getMobile());
+		details.put("firstName", user.getFirstName());
+		details.put("lastName", user.getLastName());
+		details.put("aadhaarCardNo", user.getAadhaarCardNo());
+		details.put("address", user.getAddress());
+		details.put("aadhaarCardPhoto", user.getAadhaarCardPhoto());
+		details.put("rashanCardPhoto", user.getRashanCardPhoto());
+		details.put("applicantPhoto", user.getApplicantPhoto());
+		details.put("termCondition", user.getStatus());
+		return new ResponseEntity<>(details, HttpStatus.OK);
 	}
 }

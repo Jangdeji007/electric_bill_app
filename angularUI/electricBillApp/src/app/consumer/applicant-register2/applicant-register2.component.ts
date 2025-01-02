@@ -1,3 +1,5 @@
+import { ApplicantDetails } from './applicant-Model';
+import { ApplicantService } from './../../service/applicant.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { SharedService } from './../../service/shared.service';
 import { CommonModule } from '@angular/common';
@@ -18,44 +20,64 @@ import { ActivatedRoute } from '@angular/router';
 
 export class ApplicantRegister2Component {
 
+  appliDetails:ApplicantDetails|null=null;
   formCount:number=0;
   currentStep = 1;
   districts: any;
   selectedDistrictBlocks: string[] = [];
-  firstFormGroup: FormGroup;
+  firstFormGroup!: FormGroup;
   addressForm!: FormGroup;
   termsForm!: FormGroup;
   block: any;
-  constructor(private fb: FormBuilder, private shereData: SharedService, private http: HttpClient) {
-    this.getDistrict();
+  userEmail:String='';
 
-    this.getAddressData(fb);
-    this.getTermCondition(fb);
-    this.firstFormGroup = this.fb.group({
-      connectionType: ['', Validators.required],
-      title: ['', Validators.required],
-      firstName: ["", Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      dob: ['', Validators.required],
-      gender: ['', Validators.required],
-      category: ['', Validators.required],
-      mobile: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      aadhaar: ['', [Validators.required, Validators.pattern('[0-9]{12}')]],
-      userId: ['', Validators.required],
-      aadhaarFile: ['', [Validators.required, this.fileSizeValidator]],
-      rashanCard: ['', [Validators.required, this.fileSizeValidator]],
-      photo: ['', [Validators.required, this.fileSizeValidator]],
+  constructor(private fb: FormBuilder, private shereData: SharedService, private http: HttpClient,private activeRoute:ActivatedRoute, private appService: ApplicantService) {
+    this.activeRoute.queryParams.subscribe(params => {
+      this.userEmail = params['email'];
+      console.log(params['email']);
 
+      // Fetch applicant details
+      this.appService.getApplicantDetails(this.userEmail).subscribe((res: any) => {
+        this.appliDetails = res;
+
+        // Initialize the form after data is loaded
+        this.getFirstForm(fb);
+      });
     });
 
+    // this.getFirstForm(fb);
+    this.getDistrict();
+    this.getAddressData(fb);
+    this.getTermCondition(fb);
+
   }
+
   getTermCondition(fb: FormBuilder) {
     this.termsForm = fb.group({
       terms: [false, Validators.requiredTrue]
     })
-  }
 
+  }
+  getFirstForm(fb: FormBuilder)
+  {
+    this.firstFormGroup = fb.group({
+      connectionType: [this.appliDetails?.connectionType, Validators.required],
+      title: [this.appliDetails?.title, Validators.required],
+      firstName: [this.appliDetails?.firstName, Validators.required],
+      lastName: [this.appliDetails?.lastName, Validators.required],
+      email: [this.appliDetails?.email, [Validators.required, Validators.email]],
+      dob: [this.appliDetails?.dob, Validators.required],
+      gender: [this.appliDetails?.gender, Validators.required],
+      category: [this.appliDetails?.category, Validators.required],
+      mobile: [this.appliDetails?.mobile, [Validators.required, Validators.pattern('[0-9]{10}')]],
+      aadhaar: [this.appliDetails?.aadhaarCardNo, [Validators.required, Validators.pattern('[0-9]{12}')]],
+      userId: [this.appliDetails?.userId, Validators.required],
+      aadhaarFile: [this.appliDetails?.aadhaarCardPhoto, [Validators.required, this.fileSizeValidator]],
+      rashanCard: [this.appliDetails?.rashanCardPhoto, [Validators.required, this.fileSizeValidator]],
+      photo: [this.appliDetails?.applicantPhoto, [Validators.required, this.fileSizeValidator]],
+
+    });
+  }
   getAddressData(fb: FormBuilder) {
     this.addressForm = fb.group({
       district: ["", Validators.required],

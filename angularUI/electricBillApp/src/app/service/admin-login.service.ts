@@ -9,13 +9,13 @@ export class AdminLoginService {
   constructor(private http:HttpClient) { }
   baseUrl="localhost:4040";
   isLogedIn:boolean=false;
-  generateToken(payload:any)
+  loginUser(payload:any)
   {
 
     return this.http.post(`http://localhost:4040/auth/login`,payload, {withCredentials: true })
 
   }
-  userLogin(token:any)
+  setToken(token:any)
   {
     localStorage.setItem("token",token)
     return true

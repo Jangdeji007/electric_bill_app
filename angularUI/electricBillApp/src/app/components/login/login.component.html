@@ -1,4 +1,46 @@
-<!-- login.component.html -->
+<div class="alert-box">
+  <!-- Bootstrap Alert -->
+  <div *ngIf="showAlert" [ngClass]=" 'alert alert-' + alertType" role="alert">
+    {{ alertMessage }}
+  </div>
+</div>
+<div class="container">
+  <div class="login-box">
+    <h5 class="text-center mb-4">Login for New Service Connection</h5>
+    <p>If you have already applied for a New Service Connection, then proceed with Login Credentials.</p>
+    <form [formGroup]="login" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="userId" class="form-label">Email Id/ userId <span class="text-danger">*</span></label>
+        <input type="email" class="form-control" id="email" name="email"  formControlName="email">
+        <small *ngIf="isInvalid('email')" class="text-danger">
+         email is required.
+        </small>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+        <input type="password" class="form-control" id="password" name="password" formControlName="password">
+        <small *ngIf="isInvalid('password')" class="text-danger">
+          password is required
+        </small>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+    </form>
+    <div class="mt-3">
+      <a href="#" class="d-block text-decoration-none">Forgot Password?</a>
+      <a [routerLink]="['/applicant-Register']" routerLinkActive="router-link-active" Link="applicant-Register"
+        routerLinkActive="router-link-active" class="d-block text-decoration-none">New Registration</a>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- login.component.html
  <div class="bgAdminLogin">
 <div class="container d-flex justify-content-center align-items-center vh-100" >
   <div class="card p-4 w-50 shadow">
@@ -30,4 +72,4 @@
     </form>
   </div>
 </div>
-</div>
+</div> -->

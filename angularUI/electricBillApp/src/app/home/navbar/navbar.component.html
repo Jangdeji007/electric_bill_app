@@ -48,9 +48,13 @@
         <li class=" me-3">
           <a class="text-light nav-link" href="#">CONTECT AS</a>
         </li>
-        <li class=" me-3">
-          <a class="text-light nav-link" routerLink="/login">LOGIN</a>
+        <li class="me-3">
+          <!-- Show "Login" or "Logout" dynamically based on `isLogin` -->
+          <button class="text-light nav-link" (click)="handleAuthAction()">
+            {{ isLogin ? 'LOGOUT' : 'LOGIN' }}
+          </button>
         </li>
+
         <li class=" me-3">
           <a class="text-light nav-link" href="#">ABOUT AS</a>
         </li>

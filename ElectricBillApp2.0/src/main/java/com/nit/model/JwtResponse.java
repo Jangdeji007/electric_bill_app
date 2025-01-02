@@ -1,5 +1,10 @@
 package com.nit.model;
 
+import java.util.Collection;
+import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,5 +22,7 @@ public class JwtResponse {
 
 	private String jwtToken;
 	
-	private String username;
+	private String email;
+	
+	private Set<String> roles;
 }

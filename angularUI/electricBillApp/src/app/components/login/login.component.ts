@@ -1,45 +1,79 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, EmailValidator } from '@angular/forms';
 import { AdminLoginService } from '../../service/admin-login.service';
 import { HttpHeaders } from '@angular/common/http';
+import { ApplicantService } from '../../service/applicant.service';
+import { SharedService } from '../../service/shared.service';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-login',
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  loginForm: FormGroup;
-  users:any[]= [];
-  headerToken:HttpHeaders= new HttpHeaders;
-  constructor(private fb: FormBuilder, private loginService:AdminLoginService) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
-  }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Form Submitted:', this.loginForm.value);
-      const payload= this.loginForm.value;
-      this.loginService.generateToken(payload).subscribe((result:any)=>
-      {
-       const token=result.jwtToken;
-        this.loginService.userLogin(token);
-       alert("login Sucess")
-       window.location.href="/admin"
-      }, Error=>console.log(Error));
+
+  login: FormGroup;
+    alertMessage: string = '';
+    alertType: string = '';
+    showAlert: boolean = false;
+    constructor(private fb:FormBuilder, private admService:AdminLoginService, private sharedService:SharedService, private router:Router){
+      this.login= this.fb.group({
+        email:["",[Validators.required, Validators.email]],
+        password:["",Validators.required]
+      });
     }
-  }
+    onSubmit() {
+      if (this.login.valid) {
+        this.admService.loginUser(this.login.value).subscribe((res: any) => {
+          if (res.jwtToken) {
+            this.admService.setToken(res.jwtToken);
+            localStorage.setItem("role", res.roles[0]); // Store the user's role
+            if (res.roles[0] === "ROLE_USER") {
+              this.alertMessage = "Login successful!";
+              this.alertType = "success";
+              // setTimeout(() => (window.location.href = "register"), 2000);
+              setTimeout(()=>{
+                this.router.navigate(['/register'], { queryParams: { email: res.email } })
+              },2000)
+            } else if (res.roles[0] === "ROLE_ADMIN") {
+              this.alertMessage = "Login successful!";
+              this.alertType = "success";
+              setTimeout(() => (window.location.href = "admin"), 2000);
+            } else {
+              this.alertMessage = "Invalid Role!";
+              this.alertType = "danger";
+            }
+          } else {
+            this.alertMessage = "User ID and password incorrect. Please login again!";
+            this.alertType = "danger";
+          }
+          this.showAlert = true;
+          setTimeout(() => (this.showAlert = false), 3000);
+        });
+      } else {
+        this.alertMessage = "Please fill in the User ID and Password.";
+        this.alertType = "warning";
+        this.showAlert = true;
+        this.login.markAllAsTouched();
+        setTimeout(() => (this.showAlert = false), 3000);
+      }
+    }
 
- 
+    isInvalid(controlName:string)
+    {
+      const control= this.login.get(controlName);
+
+      return control?.invalid && (control?.dirty || control.touched);
+    }
 }

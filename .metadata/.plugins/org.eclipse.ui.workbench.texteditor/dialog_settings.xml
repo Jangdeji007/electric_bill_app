@@ -6,12 +6,14 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Admin"/>
+		<item key="selection" value="getEmail"/>
 		<list key="findhistory">
+			<item value="getUsername"/>
 			<item value="User"/>
 			<item value="package com.nit.service;"/>
 		</list>
 		<list key="replacehistory">
+			<item value="getEmail"/>
 			<item value="Admin"/>
 		</list>
 	</section>
