@@ -13,4 +13,6 @@ public interface ApplicantRepository extends JpaRepository<ApplicantRegister, In
 	public boolean existsByEmail(String email);
 	
 	public Optional<ApplicantRegister> findByEmail(String email);
+	
+	public Optional<ApplicantRegister> findByRegisterId(String registerId);
 }

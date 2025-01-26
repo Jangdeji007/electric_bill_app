@@ -1,5 +1,6 @@
 package com.nit.controller;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +25,6 @@ import com.nit.model.JwtRequest;
 import com.nit.model.JwtResponse;
 import com.nit.security.JwtHelper;
 
-@CrossOrigin(origins = "http://localhost:4200/", allowCredentials = "true")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -79,9 +78,14 @@ public class AuthController {
 
 	}
 
-	@ExceptionHandler(BadCredentialsException.class)
-	public String exceptionHandler() {
-		return "Credentials Invalid !!";
-	}
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
+        // Build the JSON response
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                             .body(Map.of(
+                                 "status", "failed",
+                                 "message", "Invalid username or password"
+                             ));
+    }
 
 }

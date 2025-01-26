@@ -24,6 +24,7 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String address;
     private String housePlotPremiseNo;
     private String street;
     private String areaColony;
