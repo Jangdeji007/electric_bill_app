@@ -1,0 +1,61 @@
+<div class="container mt-5">
+  <h2 class="text-center">Check Status</h2>
+  <div class="card p-4 shadow-sm">
+    <form (ngSubmit)="checkStatus()">
+      <div class="form-group mb-3">
+        <label for="registerNumber">Registration Number</label>
+        <input
+          type="text"
+          id="registerNumber"
+          class="form-control"
+          placeholder="Enter Registration Number"
+          [(ngModel)]="registerNumber"
+          name="registerNumber"
+          required
+        />
+      </div>
+      <div class="d-flex justify-content-center gap-2">
+        <button type="submit" class="btn btn-primary w-20" [disabled]="!registerNumber">
+          Check Status
+        </button>
+        <button type="reset" class="btn btn-secondary w-20">
+          Reset
+        </button>
+      </div>
+    </form>
+    <div class="mt-4" *ngIf="statusMessage">
+      <div
+        class="alert"
+        [ngClass]="{'alert-success': status === 'success', 'alert-danger': status === 'error'}"
+      >
+        {{ statusMessage }}
+        <div class="container mt-5">
+          <h2 class="text-center">User Data Table</h2>
+          <table class="table table-bordered table-striped text-center">
+              <thead class="table-dark">
+                  <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>RegisterId</th>
+                      <th>Form Submit Data</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>{{regData.id}}</td>
+                      <td>{{regData.name}}</td>
+                      <td>{{regData.registerId}}</td>
+                      <td>{{regData.formSubmitDate|date:'dd-mm-yyyy'}}</td>
+                      <td>{{regData.email}}</td>
+                      <td  [ngClass]="{'text-success': regData.status === 'active', 'text-danger': regData.status === 'rejected', 'text-warning': regData.status === 'pending'}">{{regData.status}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+

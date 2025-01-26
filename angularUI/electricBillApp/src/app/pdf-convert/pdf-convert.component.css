@@ -1,0 +1,17 @@
+.container {
+  max-width: 900px;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+.img-fluid {
+  max-height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}

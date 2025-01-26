@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Registration Form</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+}
+
+.container {
+	width: 80%;
+	margin: auto;
+	border: 1px solid #ccc;
+	padding: 20px;
+}
+
+.section {
+	margin-bottom: 20px;
+}
+
+.section h2 {
+	border-bottom: 1px solid #000;
+	padding-bottom: 5px;
+}
+
+.image {
+	width: 150px;
+	height: 150px;
+	border: 1px solid #000;
+	margin: 10px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Applicant Registration Form</h1>
+
+		<div class="section">
+			<h2>Applicant Details</h2>
+			<p>
+				<strong>Name:</strong> <span
+					th:text="${appliDetails.firstName} + ' ' + ${appliDetails.lastName}"></span>
+			</p>
+			<p>
+				<strong>Email:</strong> <span th:text="${appliDetails.email}"></span>
+			</p>
+			<p>
+				<strong>Mobile:</strong> <span th:text="${appliDetails.mobile}"></span>
+			</p>
+			<p>
+				<strong>Date of Birth:</strong> <span th:text="${appliDetails.dob}"></span>
+			</p>
+			<p>
+				<strong>Gender:</strong> <span th:text="${appliDetails.gender}"></span>
+			</p>
+			<p>
+				<strong>Category:</strong> <span th:text="${appliDetails.category}"></span>
+			</p>
+			<p>
+				<strong>Register ID:</strong> <span
+					th:text="${appliDetails.registerId}"></span>
+			</p>
+			<p>
+				<strong>Aadhaar Card No:</strong> <span
+					th:text="${appliDetails.aadhaarCardNo}"></span>
+			</p>
+			<p>
+				<strong>Status:</strong> <span th:text="${appliDetails.status}"></span>
+			</p>
+			<p>
+				<strong>Form Status:</strong> <span
+					th:text="${appliDetails.formStatus}"></span>
+			</p>
+		</div>
+
+		<div class="section">
+			<h2>Address Details</h2>
+			<p>
+				<strong>Address:</strong> <span th:text="${address.address}"></span>
+			</p>
+			<p>
+				<strong>House/Plot No:</strong> <span
+					th:text="${address.housePlotPremiseNo}"></span>
+			</p>
+			<p>
+				<strong>Street:</strong> <span th:text="${address.street}"></span>
+			</p>
+			<p>
+				<strong>Area/Colony:</strong> <span th:text="${address.areaColony}"></span>
+			</p>
+			<p>
+				<strong>Town/Village:</strong> <span
+					th:text="${address.townVillage}"></span>
+			</p>
+			<p>
+				<strong>District:</strong> <span th:text="${address.district}"></span>
+			</p>
+			<p>
+				<strong>Block:</strong> <span th:text="${address.block}"></span>
+			</p>
+			<p>
+				<strong>Pincode:</strong> <span th:text="${address.pincode}"></span>
+			</p>
+		</div>
+
+		<div class="section">
+			<h2>Uploaded Documents</h2>
+			<div th:each="doc : ${documents}">
+				<p>
+					<strong>Document Name:</strong> <span th:text="${doc.name}"></span>
+				</p>
+				<p>
+					<strong>Type:</strong> <span th:text="${doc.type}"></span>
+				</p>
+
+				<!-- Correct way to display a Base64 image -->
+				<img class="image" th:if="${doc.type.startsWith('image/')}"
+					th:src="'data:' + ${doc.type} + ';base64,' + ${doc.content}"
+					alt="Uploaded Image" style="max-width: 300px; height: auto;"/>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
