@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApplicantService } from '../../service/applicant.service';
+import { OtpService } from '../../service/otp.service';
 
 
 @Component({
@@ -13,9 +14,12 @@ import { ApplicantService } from '../../service/applicant.service';
 export class ApplicantRegisterComponent{
 
   registrationForm: FormGroup;
-  constructor(private fb: FormBuilder, private registerService:ApplicantService) {
+  otpSent: boolean = false;
+  otpVerified: boolean = false;
+  constructor(private fb: FormBuilder, private registerService:ApplicantService, private otpService:OtpService) {
     this.registrationForm = this.fb.group({
       connectionType: ['LT', Validators.required], // Default value with validation
+      otp: ['', Validators.required], // ✅ Add this line for OTP field
       userId: ['', Validators.required], // Required field
       email: ['', [Validators.required, Validators.email]], // Required and valid email
       mobile: [
@@ -44,6 +48,35 @@ export class ApplicantRegisterComponent{
   isInvalid(controlName: string) {
     const control = this.registrationForm.get(controlName);
     return control?.invalid && (control?.dirty || control?.touched);
+  }
+
+  sendOtp(): void {
+    const email = this.registrationForm.value.email;
+      this.otpService.sentOtp(email).subscribe({
+        next:(res)=>{
+          this.otpSent = true;
+          alert('OTP Sent Successfully!');
+        },error:(err)=>console.log("AAA",err)
+      })
+  }
+
+  verifyOtp(): void {
+    const email = this.registrationForm.value.email;
+    const otp = this.registrationForm.value.otp;
+    const payload={
+      email:this.registrationForm.value.email,
+      otp: this.registrationForm.value.otp
+    }
+    this.otpService.verifyOtp(payload).subscribe({
+      next:(res:any)=>{
+        if (res.valid) {
+          this.otpVerified = true;
+          alert('OTP Verified Successfully!');
+        } else {
+          alert('Invalid OTP. Please try again.');
+        }
+      },error:(err)=>console.log("BBB",err)
+    })
   }
 
   // Handle form submission

@@ -1,4 +1,5 @@
 export interface Address {
+  address:string
   housePlotPremiseNo: string;
   street: string;
   areaColony: string;
@@ -16,7 +17,7 @@ export interface ApplicantDetails {
   mobile: number;
   firstName: string;
   lastName: string;
-  dob: string;
+  dob: any;
   gender: string;
   category: string;
   aadhaarCardNo: string;
@@ -26,5 +27,10 @@ export interface ApplicantDetails {
   applicantPhoto: string;
   termCondition: boolean;
   status: string;
-
+  document:Documents
+}
+export interface Documents{
+  name:string,
+  type:string,
+  content:string
 }

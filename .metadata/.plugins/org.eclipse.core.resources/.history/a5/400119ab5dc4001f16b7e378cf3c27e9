@@ -1,5 +1,0 @@
-package com.nit.exception;
-
-public class GlobalExceptionHandler {
-
-}

@@ -6,21 +6,11 @@
             <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
               <!-- Type of Connection -->
               <div class="mb-3">
-                <label >Select Type of Connection:</label><br>
+                <label>Select Type of Connection:</label><br>
                 <div class="form-check form-check-inline">
-                  <input
-                    type="radio"
-                    formControlName="connectionType"
-                    value="HT"
-                    id="ht"
-                  />
+                  <input type="radio" formControlName="connectionType" value="HT" id="ht" />
                   <label class="form-check-label p-2" for="ht">HT</label>
-                  <input
-                    type="radio"
-                    formControlName="connectionType"
-                    value="LT"
-                    id="lt"
-                  />
+                  <input type="radio" formControlName="connectionType" value="LT" id="lt" />
                   <label class="form-check-label p-2" for="lt">LT</label>
                 </div>
               </div>
@@ -28,77 +18,53 @@
               <!-- User ID -->
               <div class="mb-3">
                 <label for="userId">User ID:</label>
-                <input
-                  type="text"
-                  id="userId"
-                  formControlName="userId"
-                  class="form-control"
-                />
-                <small *ngIf="isInvalid('userId')" class="text-danger">
-                  User ID is required.
-                </small>
+                <input type="text" id="userId" formControlName="userId" class="form-control" />
+                <small *ngIf="isInvalid('userId')" class="text-danger">User ID is required.</small>
               </div>
 
               <!-- Email -->
               <div class="mb-3">
                 <label for="email">Email:</label>
-                <input
-                  type="email"
-                  id="email"
-                  formControlName="email"
-                  class="form-control"
-                />
-                <small *ngIf="isInvalid('email')" class="text-danger">
-                  Enter a valid email address.
-                </small>
+                <input type="email" id="email" formControlName="email" class="form-control" />
+                <small *ngIf="isInvalid('email')" class="text-danger">Enter a valid email address.</small>
+              </div>
+
+              <!-- OTP Request Button -->
+              <button type="button" class="btn btn-warning mt-2" (click)="sendOtp()">Send OTP</button>
+
+              <!-- OTP Verification -->
+              <div class="mb-3 mt-3" *ngIf="otpSent">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" id="otp" formControlName="otp" class="form-control" />
+                <small *ngIf="isInvalid('otp')" class="text-danger">OTP is required.</small>
+                <button type="button" class="btn btn-success mt-2" (click)="verifyOtp()">Verify OTP</button>
               </div>
 
               <!-- Mobile Number -->
               <div class="mb-3">
                 <label for="mobile">Mobile Number:</label>
-                <input
-                  type="text"
-                  id="mobile"
-                  formControlName="mobile"
-                  class="form-control"
-                />
-                <small *ngIf="isInvalid('mobile')" class="text-danger">
-                  Mobile number must be 10 digits.
-                </small>
+                <input type="text" id="mobile" formControlName="mobile" class="form-control" />
+                <small *ngIf="isInvalid('mobile')" class="text-danger">Mobile number must be 10 digits.</small>
               </div>
 
               <!-- Password -->
               <div class="mb-3">
                 <label for="password">Password:</label>
-                <input
-                  type="password"
-                  id="password"
-                  formControlName="password"
-                  class="form-control"
-                />
-                <small *ngIf="isInvalid('password')" class="text-danger">
-                  Password must be at least 6 characters long.
-                </small>
+                <input type="password" id="password" formControlName="password" class="form-control" />
+                <small *ngIf="isInvalid('password')" class="text-danger">Password must be at least 6 characters long.</small>
               </div>
 
               <!-- Confirm Password -->
               <div class="mb-3">
                 <label for="confirmPassword">Re-enter Password:</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  formControlName="confirmPassword"
-                  class="form-control"
-                />
-                <small *ngIf="isInvalid('confirmPassword')" class="text-danger">
-                  Passwords must match.
-                </small>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" />
+                <small *ngIf="isInvalid('confirmPassword')" class="text-danger">Passwords must match.</small>
               </div>
+
               <!-- Submit Button -->
-              <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Submit</button>
+              <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid || !otpVerified">Submit</button>
             </form>
           </div>
       </div>
   </div>
 </div>
-

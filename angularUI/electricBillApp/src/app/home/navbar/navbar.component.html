@@ -1,66 +1,122 @@
 <nav class="navbar navbar-expand-lg text-bg-primary">
   <div class="container-fluid">
-    <div class=" navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav gap-1">
-        <li class=" me-3">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav gap-3">
+        <!-- Home -->
+        <li class="nav-item">
           <a class="text-light nav-link" routerLink="/home">HOME</a>
         </li>
-        <li class="nav-item dropdown me-3">
-          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+        <!-- Company Information -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-light"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             COMPANY INFORMATION
           </a>
-          <ul class="dropdown-menu me-3">
-            @for (item of companytInf; track $index) {
-            <li><a class="dropdown-item"  routerLink="{{item}}" routerLinkActive="router-link-active">{{ item.toLocaleUpperCase() }}</a></li>
-            }
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/about_cspdl">ABOUT CSPDL</a></li>
+            <li><a class="dropdown-item" routerLink="/board_of_directors">BOARD OF DIRECTORS</a></li>
+            <li><a class="dropdown-item" routerLink="/company_mission">COMPANY MISSION</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown me-3">
-          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            CONSUMER_SERVICE
-          </a>
-          <ul class="dropdown-menu me-3">
-            @for (item of consumerService; track $index) {
-            <li><a class="dropdown-item" routerLink="{{item}}">{{ item.toLocaleUpperCase()}}</a></li>
-            }
-          </ul>
-        </li>
-        <li class="nav-item dropdown me-3">
-          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            RENEWABLE ENARGY
+
+        <!-- Consumer Service -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-light"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            CONSUMER SERVICE
           </a>
           <ul class="dropdown-menu">
-            @for (item of renewbleenrgy; track $index) {
-            <li><a class="dropdown-item" href="#">{{ item.toLocaleUpperCase() }}</a></li>
-            }
+            <li *ngFor="let item of consumerService">
+              <a
+                class="dropdown-item"
+                routerLink="{{item}}"
+                routerLinkActive="router-link-active"
+              >
+                {{ item.toUpperCase() }}
+              </a>
+            </li>
           </ul>
         </li>
-        <li class="nav-item dropdown me-3">
-          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+        <!-- Renewable Energy -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-light"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            RENEWABLE ENERGY
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let item of renewbleenrgy">
+              <a class="dropdown-item" href="#">
+                {{ item.toUpperCase() }}
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Tenders -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-light"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             TENDERS
           </a>
           <ul class="dropdown-menu">
-            @for (item of tenders; track $index) {
-            <li><a class="dropdown-item" href="#">{{ item.toLocaleUpperCase() }}</a></li>
-            }
+            <li *ngFor="let item of tenders">
+              <a class="dropdown-item" href="#">
+                {{ item.toUpperCase() }}
+              </a>
+            </li>
           </ul>
         </li>
-        <li class=" me-3">
-          <a class="text-light nav-link" href="#">CONTECT AS</a>
+
+        <!-- Contact Us -->
+        <li class="nav-item">
+          <a class="text-light nav-link" href="#">CONTACT US</a>
         </li>
-        <li class="me-3">
-          <!-- Show "Login" or "Logout" dynamically based on `isLogin` -->
-          <button class="text-light nav-link" (click)="handleAuthAction()">
+
+        <!-- Login/Logout -->
+        <li class="nav-item">
+          <button class="btn btn-link text-light nav-link" (click)="handleAuthAction()">
             {{ isLogin ? 'LOGOUT' : 'LOGIN' }}
           </button>
         </li>
 
-        <li class=" me-3">
-          <a class="text-light nav-link" href="#">ABOUT AS</a>
+        <!-- About Us -->
+        <li class="nav-item">
+          <a class="text-light nav-link" href="#">ABOUT US</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-
-

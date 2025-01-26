@@ -8,6 +8,7 @@ import { AboutComponent } from './home/about/about.component';
 import { BoardOfdirectorsComponent } from './home/board-ofdirectors/board-ofdirectors.component';
 import { ApplicantRegisterComponent } from './consumer/applicant-register/applicant-register.component';
 import { ApplicantRegister2Component } from './consumer/applicant-register2/applicant-register2.component';
+import { ConsumerStatusComponent } from './consumer/consumer-status/consumer-status.component';
 export const routes: Routes = [
   { path: "", component: HomeComponent },
   { path: "board_of_directors", component: BoardOfdirectorsComponent },
@@ -15,7 +16,7 @@ export const routes: Routes = [
   { path: "Applicant_Login", redirectTo: "login" },
   { path: "register", component: ApplicantRegister2Component, canActivate: [authGuard], data:{roles:["ROLE_USER"]}},
   { path: "about_cspdl", component: AboutComponent },
-
+  {path:"Applicant_status", component:ConsumerStatusComponent},
   { path: "login", component: LoginComponent },
   {
     path: "admin",

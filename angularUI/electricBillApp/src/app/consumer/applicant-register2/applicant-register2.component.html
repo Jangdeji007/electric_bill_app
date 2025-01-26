@@ -50,11 +50,10 @@
             <label for="title" class="form-label">Title <span style="color: brown;">*</span></label>
             <select class="form-select" formControlName="title" id="title" required>
               <option value="" disabled>Select</option>
-              <option>Mr</option>
-              <option>Ms</option>
+              <option value="Mr" [selected]="firstFormGroup.controls['title'].value === 'Mr'">Mr</option>
+              <option value="Ms" [selected]="firstFormGroup.controls['title'].value === 'Ms'">Ms</option>
             </select>
-            <div *ngIf="firstFormGroup.controls['title'].invalid && firstFormGroup.controls['title'].touched"
-              class="text-danger">
+            <div *ngIf="firstFormGroup.controls['title'].invalid && firstFormGroup.controls['title'].touched" class="text-danger">
               Please select a title.
             </div>
           </div>
@@ -88,7 +87,7 @@
 
           <div class="col-md-4">
             <label for="dob" class="form-label">Date of Birth <span style="color: brown;">*</span></label>
-            <input type="date" class="form-control" formControlName="dob" id="dob" required>
+            <input type="date" class="form-control" formControlName="dob" id="dob" [max]="minDate" required>
             <div *ngIf="firstFormGroup.controls['dob'].invalid && firstFormGroup.controls['dob'].touched"
               class="text-danger">
               Date of birth is required.
@@ -98,7 +97,7 @@
           <div class="col-md-2">
             <label for="gender" class="form-label">Gender <span style="color: brown;">*</span></label>
             <select class="form-select" formControlName="gender" id="gender" required>
-              <option value="" disabled>Select</option>
+              <option value="{{firstFormGroup.controls['gender'].value}}" disabled [selected]="!firstFormGroup.controls['gender'].value">Select</option>
               <option>Male</option>
               <option>Female</option>
               <option>Other</option>
@@ -112,7 +111,7 @@
           <div class="col-md-2">
             <label for="category" class="form-label">Category <span style="color: brown;">*</span></label>
             <select class="form-select" formControlName="category" id="category" required>
-              <option value="" disabled>Select</option>
+              <option value="{{firstFormGroup.controls['category'].value}}" disabled [selected]="!firstFormGroup.controls['category'].value">Select</option>
               <option>General</option>
               <option>General (EWS)</option>
               <option>OBC</option>
@@ -143,9 +142,9 @@
           </div>
 
           <div class="col-md-6">
-            <label for="aadhaar" class="form-label">Aadhaar Card <span style="color: brown;">*</span></label>
-            <input type="text" class="form-control" formControlName="aadhaar" id="aadhaar" required>
-            <div *ngIf="firstFormGroup.controls['aadhaar'].invalid && firstFormGroup.controls['aadhaar'].touched"
+            <label for="aadhaarCardNo" class="form-label">Aadhaar Card <span style="color: brown;">*</span></label>
+            <input type="number" class="form-control" formControlName="aadhaarCardNo" id="aadhaarCardNo" required>
+            <div *ngIf="firstFormGroup.controls['aadhaarCardNo'].invalid && firstFormGroup.controls['aadhaarCardNo'].touched"
               class="text-danger">
               Aadhaar number is required.
             </div>
@@ -154,50 +153,57 @@
           <h5>Documents</h5>
           <div class="col-md-6">
             <label class="form-label">Aadhaar Card <span style="color: brown;">*</span></label>
-            <input type="file" class="form-control" formControlName="aadhaarFile"
-              (change)="onFileChange($event, 'aadhaarFile')" required>
+            <input type="file" class="form-control" formControlName="aadhaarCardPhoto"
+              (change)="onAadhaarFileChange($event)" required>
             <div
-              *ngIf="firstFormGroup.controls['aadhaarFile'].hasError('required') && firstFormGroup.controls['aadhaarFile'].touched"
+              *ngIf="firstFormGroup.controls['aadhaarCardPhoto'].hasError('required') && firstFormGroup.controls['aadhaarCardPhoto'].touched"
               class="text-danger">
               Aadhaar Card is required.
             </div>
             <div
-              *ngIf="firstFormGroup.controls['aadhaarFile'].hasError('adharSize') && firstFormGroup.controls['aadhaarFile'].touched"
+              *ngIf="firstFormGroup.controls['aadhaarCardPhoto'].hasError('adharSize') && firstFormGroup.controls['aadhaarCardPhoto'].touched"
               class="text-danger">
               File size must be less than 200KB.
             </div>
           </div>
-
+          <div class="col-md-6" *ngIf="documents[0]?.content">
+            <img [src]="decodeBase64(documents[0]?.content)" [alt]="documents[0]?.name" alt="aadhaarCardPhoto" width="80px" height="80px">
+          </div>
           <div class="col-md-6">
             <label class="form-label">Rashan Card <span style="color: brown;">*</span></label>
-            <input type="file" class="form-control" formControlName="rashanCard"
-              (change)="onFileChange($event, 'rashanCard')" required>
+            <input type="file" class="form-control" formControlName="rashanCardPhoto"
+            (change)="onRashanCardFileChange($event)" required>
             <div
-              *ngIf="firstFormGroup.controls['rashanCard'].hasError('required') && firstFormGroup.controls['rashanCard'].touched"
+              *ngIf="firstFormGroup.controls['rashanCardPhoto'].hasError('required') && firstFormGroup.controls['rashanCardPhoto'].touched"
               class="text-danger">
               Rashan Card is required.
             </div>
             <div
-              *ngIf="firstFormGroup.controls['rashanCard'].hasError('fileSize') && firstFormGroup.controls['rashanCard'].touched"
+              *ngIf="firstFormGroup.controls['rashanCardPhoto'].hasError('fileSize') && firstFormGroup.controls['rashanCardPhoto'].touched"
               class="text-danger">
               File size must be less than 200KB.
             </div>
           </div>
-
+          <div class="col-md-6" *ngIf="documents[1]?.content">
+            <img [src]="decodeBase64(documents[1]?.content)" [alt]="documents[1]?.name" alt="rashanCardPhoto" width="80px" height="80px">
+          </div>
           <div class="col-md-6">
-            <label class="form-label">Photo</label><small>(passport size)</small>
-            <input type="file" class="form-control" formControlName="photo" (change)="onFileChange($event, 'photo')"
+            <label class="form-label">applicantPhoto</label><small>(passport size)</small>
+            <input type="file" class="form-control" formControlName="applicantPhoto" (change)="onPhotoFileChange($event)"
               required>
             <div
-              *ngIf="firstFormGroup.controls['photo'].hasError('required') && firstFormGroup.controls['photo'].touched"
+              *ngIf="firstFormGroup.controls['applicantPhoto'].hasError('required') && firstFormGroup.controls['applicantPhoto'].touched"
               class="text-danger">
-              Photo is required.
+              applicantPhoto is required.
             </div>
             <div
-              *ngIf="firstFormGroup.controls['photo'].hasError('fileSize') && firstFormGroup.controls['photo'].touched"
+              *ngIf="firstFormGroup.controls['applicantPhoto'].hasError('fileSize') && firstFormGroup.controls['applicantPhoto'].touched"
               class="text-danger">
               File size must be less than 200KB.
             </div>
+          </div>
+          <div class="col-md-6" *ngIf="documents[2]?.content">
+            <img [src]="decodeBase64(documents[2]?.content)" [alt]="documents[2]?.name" alt="applicantPhoto" width="80px" height="80px">
           </div>
           <div class="col-md-12 text-center">
             <button type="submit" class="btn btn-primary">Save and Next</button>
@@ -219,11 +225,11 @@
             </div>
           </div>
           <div class="col-md-4">
-            <label for="house" class="form-label">House/plot/premise no.</label>
-            <input type="text" class="form-control" formControlName="house" id="houser">
-            <div *ngIf="addressForm.controls['house'].invalid && addressForm.controls['house'].touched"
+            <label for="housePlotPremiseNo" class="form-label">housePlotPremiseNo/plot/premise no.</label>
+            <input type="text" class="form-control" formControlName="housePlotPremiseNo" id="houser">
+            <div *ngIf="addressForm.controls['housePlotPremiseNo'].invalid && addressForm.controls['housePlotPremiseNo'].touched"
               class="text-danger">
-              house No is required.
+              housePlotPremiseNo No is required.
             </div>
           </div>
           <div class="col-md-4">
@@ -235,9 +241,9 @@
             </div>
           </div>
           <div class="col-md-4">
-            <label for="calony" class="form-label">Area/Colony</label>
-            <input type="text" class="form-control" formControlName="calony" id="colony">
-            <div *ngIf="addressForm.controls['calony'].invalid && addressForm.controls['calony'].touched"
+            <label for="areaColony" class="form-label">Area/Colony</label>
+            <input type="text" class="form-control" formControlName="areaColony" id="colony">
+            <div *ngIf="addressForm.controls['areaColony'].invalid && addressForm.controls['areaColony'].touched"
               class="text-danger">
               Area/Colony is required.
             </div>
@@ -245,12 +251,12 @@
           <div class="col-md-4">
             <div class="form-check form-check-inline">
               <label for="">Town/Village</label><br>
-              <input type="radio" formControlName="localaty" value="Town" id="Town" />
+              <input type="radio" formControlName="townVillage" value="Town" id="Town" />
               <label class="form-check-label p-2" for="Town">Town</label>
-              <input type="radio" formControlName="localaty" value="Village" id="Village" />
+              <input type="radio" formControlName="townVillage" value="Village" id="Village" />
               <label class="form-check-label p-2" for="Village">Village</label>
             </div>
-            <div *ngIf="addressForm.controls['localaty'].invalid && addressForm.controls['localaty'].touched"
+            <div *ngIf="addressForm.controls['townVillage'].invalid && addressForm.controls['townVillage'].touched"
               class="text-danger">
               Please select a connection type.
             </div>
@@ -258,7 +264,7 @@
           <div class="col-md-3">
             <label for="district" class="form-label">District</label>
             <select class="form-select" formControlName="district" id="district" required>
-              <option value="" disabled>Select a District</option>
+              <option value="{{addressForm.controls['district'].value}}" disabled [selected]="!addressForm.controls['district'].value">Select</option>
               <option *ngFor="let item of districts" [value]="item.district">
                 {{ item.district }}
               </option>
@@ -282,7 +288,7 @@
             </div>
           </div>
           <div class="col-md-3">
-            <label for="calony" class="form-label">Pincode</label>
+            <label for="areaColony" class="form-label">Pincode</label>
             <input type="number" class="form-control" formControlName="pincode" id="pincode">
             <div *ngIf="addressForm.controls['pincode'].invalid && addressForm.controls['pincode'].touched"
               class="text-danger">
@@ -334,7 +340,7 @@
           भरे हुए फॉर्म को सहेजने के लिए Save बटन दबाएं। (If you have partly filled up the Online NSC Form and want to
           complete it after some time then Press Save button to save your current filled up form.)
         </p>
-        <form [formGroup]="termsForm" (ngSubmit)="submit()">
+        <form [formGroup]="termsForm" (ngSubmit)="openPopup()">
           <div class="form-check mb-3">
             <input
               type="checkbox"
@@ -351,11 +357,33 @@
           </div>
           <div class="col-md-12 text-center">
             <button type="button" class="btn btn-secondary m-2" (click)="previousStep()">Previous</button>
-            <button type="submit" class="btn btn-primary" [disabled]="termsForm.invalid || firstFormGroup.invalid || addressForm.invalid">Save</button>
+            <button type="submit" class="btn btn-primary" [disabled]="(!isAllFormsValid())">Save</button>
+
           </div>
         </form>
-
+        <button type="submit" class="btn btn-primary" (click)="generatePDF()">Save</button>
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirm Your Submission</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Registration ID:</strong> {{ registrationId }}</p>
+        <p>your Electric Bill Form successfully register <br>Please note your Register Id</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="closePopup()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
